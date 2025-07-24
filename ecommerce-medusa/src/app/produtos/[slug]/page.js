@@ -9,7 +9,8 @@ export default function ProdutoPage() {
 
   useEffect(() => {
     if (slug) {
-      fetch(`https://SEU-BACKEND-MEDUSA.com/store/products/${slug}`)
+      const base = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
+      fetch(`${base}/store/products/${slug}`)
         .then(res => res.json())
         .then(data => setProduto(data.product));
     }
