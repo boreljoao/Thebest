@@ -1,32 +1,30 @@
-'use client';
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import '../../styles/produto.css';
+'use client'
+import { useParams, useRouter } from 'next/navigation'
+import '../../styles/produto.css'
+
+const produto = {
+  slug: 'vale-teste',
+  title: 'Vale Teste',
+  description: 'Um vale simples de teste',
+  price: 1,
+  image: '/vale.jpg'
+}
 
 export default function ProdutoPage() {
-  const { slug } = useParams();
-  const [produto, setProduto] = useState(null);
+  const { slug } = useParams()
+  const router = useRouter()
 
-  useEffect(() => {
-    if (slug) {
-      const base = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
-      fetch(`${base}/store/products/${slug}`)
-        .then(res => res.json())
-        .then(data => setProduto(data.product));
-    }
-  }, [slug]);
-
-  if (!produto) return <div>Carregando...</div>;
+  if (slug !== produto.slug) return <div>Produto não encontrado</div>
 
   return (
-    <div className="produto-container">
-      <img src={produto.thumbnail} alt={produto.title} />
-      <div className="produto-info">
+    <div className='produto-container'>
+      <img src={produto.image} alt={produto.title} />
+      <div className='produto-info'>
         <h1>{produto.title}</h1>
         <p>{produto.description}</p>
-        <span>{produto.variants[0].prices[0].amount / 100} R$</span>
-        <button>Comprar</button>
+        <span>R$ {produto.price.toFixed(2)}</span>
+        <button onClick={() => router.push('/checkout')}>Comprar</button>
       </div>
     </div>
-  );
+  )
 }

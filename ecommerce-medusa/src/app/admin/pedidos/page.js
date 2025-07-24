@@ -2,21 +2,20 @@
 import { useEffect, useState } from 'react'
 
 export default function PedidosPage() {
-  const [pedidos, setPedidos] = useState([])
+  const [orders, setOrders] = useState([])
 
   useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
-    fetch(`${base}/admin/orders`)
-      .then(res => res.json())
-      .then(data => setPedidos(data.orders || []))
+    fetch('/api/orders')
+      .then(r => r.json())
+      .then(setOrders)
   }, [])
 
   return (
-    <div className="container">
+    <div className='container'>
       <h1>Pedidos</h1>
       <ul>
-        {pedidos.map(p => (
-          <li key={p.id}>{p.display_id} - {p.total / 100} {p.currency_code}</li>
+        {orders.map(o => (
+          <li key={o.id}>{o.name} - {o.email}</li>
         ))}
       </ul>
     </div>

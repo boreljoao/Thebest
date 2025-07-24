@@ -1,33 +1,45 @@
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #0070f3;
+}
+nav a:hover {
+  color: #005bb5;
+}
+
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  .container {
-    padding: 20px;
-  }
-  
-  .produtos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .produto-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .produto-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .produto-card img {
-    width: 100%;
-    height: auto;
-  }
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.produto-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.produto-card:hover {
+  /* transform: scale(1.05); */
+}
+
+.produto-card img {
+  width: 100%;
+  height: auto;
+}
 
 /* Estilos para a Home (page.js) */
 .home-container {

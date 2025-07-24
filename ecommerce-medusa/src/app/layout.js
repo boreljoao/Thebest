@@ -21,9 +21,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <nav style={{ padding: '10px' }}>
-          <a href="/" style={{ marginRight: '10px' }}>Loja</a>
+          <a href="/" style={{ marginRight: '10px' }}>Home</a>
+          <a href="/produtos" style={{ marginRight: '10px' }}>Produtos</a>
           <a href="/admin/estoque" style={{ marginRight: '10px' }}>Estoque</a>
-          <a href="/admin/pedidos">Pedidos</a>
+          <a href="/admin/pedidos" style={{ marginRight: '10px' }}>Pedidos</a>
+          <a href="/checkout">Checkout</a>
         </nav>
         {children}
       </body>
