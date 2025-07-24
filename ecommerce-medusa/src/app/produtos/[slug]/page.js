@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+'use client';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import '../../styles/produto.css';
 
 export default function ProdutoPage() {
-  const router = useRouter();
-  const { slug } = router.query;
+  const { slug } = useParams();
   const [produto, setProduto] = useState(null);
 
   useEffect(() => {
