@@ -1,31 +1,22 @@
+'use client';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import './styles/global.css';
 
 export default function Home() {
-  const [produtos, setProdutos] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
-    fetch(`${base}/store/products`)
-      .then(res => res.json())
-      .then(data => setProdutos(data.products));
+    console.log('Componente montado');
   }, []);
 
   return (
-    <div className="container">
-      <h1>Minha Loja</h1>
-      <div className="produtos-grid">
-        {produtos.map(produto => (
-          <Link href={`/produtos/${produto.handle}`} key={produto.id}>
-            <div className="produto-card">
-              <img src={produto.thumbnail} alt={produto.title} />
-              <h2>{produto.title}</h2>
-              <p>{produto.variants[0].prices[0].amount / 100} R$</p>
-            </div>
-          </Link>
-        ))}
-      </div>
+    <div className="home-container">
+      <h1>Bem-vindo</h1>
+      <p>Contador: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Incrementar</button>
+      <Link href="/produtos">Ver Produtos</Link>
     </div>
   );
 }
