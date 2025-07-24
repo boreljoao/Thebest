@@ -26,10 +26,8 @@ export default function Home() {
         <button onClick={() => setCount(count + 1)} style={{ background: '#0070f3', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: 6, fontSize: '1rem', cursor: 'pointer', fontWeight: 600, boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}>
           Incrementar ({count})
         </button>
-        <Link href="/produtos" legacyBehavior>
-          <a style={{ background: '#fff', color: '#0070f3', border: '2px solid #0070f3', padding: '10px 24px', borderRadius: 6, fontWeight: 600, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
-            Ver Produtos
-          </a>
+        <Link href="/produtos" style={{ background: '#fff', color: '#0070f3', border: '2px solid #0070f3', padding: '10px 24px', borderRadius: 6, fontWeight: 600, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+          Ver Produtos
         </Link>
       </div>
       <div style={{ marginTop: 32, color: '#888', fontSize: 14 }}>
