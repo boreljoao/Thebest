@@ -1,0 +1,33 @@
+.produto-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .produto-container img {
+    width: 300px;
+    height: auto;
+  }
+  
+  .produto-info h1 {
+    margin: 0 0 10px 0;
+  }
+  
+  .produto-info span {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #444;
+  }
