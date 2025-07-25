@@ -15,7 +15,11 @@ export default function PedidosPage() {
       <h1>Pedidos</h1>
       <ul>
         {orders.map(o => (
-          <li key={o.id}>{o.name} - {o.email}</li>
+          <li key={o.id}>
+            <b>{o.name}</b> - {o.email} <br/>
+            <span>Quantidade: {o.quantidade || 1}</span> <br/>
+            <span>Hora: {o.hora ? new Date(o.hora).toLocaleString() : '-'}</span>
+          </li>
         ))}
       </ul>
     </div>

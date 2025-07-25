@@ -1,23 +1,44 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../styles/produto.css'
 
 export default function ProdutosPage() {
-  const [estoque, setEstoque] = useState(20)
+  const [estoque, setEstoque] = useState(null)
   const [adicionados, setAdicionados] = useState(0)
 
+  useEffect(() => {
+    fetch('/api/inventory')
+      .then(res => res.json())
+      .then(data => setEstoque(data.available))
+    // Recupera do localStorage o valor salvo no Home
+    const salvo = parseInt(window.localStorage.getItem('vale_adicionados') || '0', 10)
+    setAdicionados(salvo)
+  }, [])
+
   const handleAdicionar = () => {
-    if (adicionados < estoque) {
+    if (estoque !== null && adicionados < estoque) {
       setAdicionados(adicionados + 1)
+      window.localStorage.setItem('vale_adicionados', adicionados + 1)
+    }
+  }
+
+  const handleRemover = () => {
+    if (adicionados > 0) {
+      setAdicionados(adicionados - 1)
+      window.localStorage.setItem('vale_adicionados', adicionados - 1)
     }
   }
 
   const handleCheckout = () => {
-    if (adicionados > 0) {
-      // Aqui você pode redirecionar para o checkout ou simular
+    if (adicionados > 0 && adicionados <= estoque) {
       window.location.href = '/checkout'
     }
   }
+
+  const estoqueDisponivel = estoque !== null ? estoque - adicionados : null
+  const podeAdicionar = estoque !== null && adicionados < estoque
+  const podeRemover = adicionados > 0
+  const podeCheckout = adicionados > 0 && adicionados <= estoque
 
   return (
     <div className="produtos-page">
@@ -26,12 +47,15 @@ export default function ProdutosPage() {
         <h2>Vale Teste</h2>
         <p className="produto-desc">Um vale simples para testes. Adicione ao carrinho e finalize para testar o fluxo.</p>
         <span className="produto-preco">R$ 1,00</span>
-        <span className="produto-estoque">{estoque - adicionados} disponíveis</span>
+        <span className="produto-estoque">{estoqueDisponivel !== null ? estoqueDisponivel : 'Carregando...'} disponíveis</span>
         <div className="produto-actions">
-          <button onClick={handleAdicionar} disabled={adicionados >= estoque} className="btn-add">
+          <button onClick={handleAdicionar} disabled={!podeAdicionar} className="btn-add">
             Adicionar {adicionados > 0 && `(${adicionados})`}
           </button>
-          <button onClick={handleCheckout} disabled={adicionados === 0} className="btn-checkout">
+          <button onClick={handleRemover} disabled={!podeRemover} className="btn-remove">
+            Remover
+          </button>
+          <button onClick={handleCheckout} disabled={!podeCheckout} className="btn-checkout">
             Ir para Checkout
           </button>
         </div>

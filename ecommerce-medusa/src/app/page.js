@@ -11,6 +11,17 @@ export default function Home() {
     console.log('Componente montado');
   }, []);
 
+  const handleIncrementar = () => {
+    const novoCount = count + 1;
+    setCount(novoCount);
+    window.localStorage.setItem('vale_adicionados', novoCount);
+  };
+
+  const handleVerProdutos = () => {
+    window.localStorage.setItem('vale_adicionados', count);
+    window.location.href = '/produtos';
+  };
+
   return (
     <div className="home-container">
       <img
@@ -23,12 +34,12 @@ export default function Home() {
         Experimente nossa loja! Adicione um vale teste ao carrinho, vá para o checkout e veja o fluxo completo de compra e estoque funcionando.
       </p>
       <div style={{ display: 'flex', gap: 16, marginBottom: 18 }}>
-        <button onClick={() => setCount(count + 1)} style={{ background: '#0070f3', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: 6, fontSize: '1rem', cursor: 'pointer', fontWeight: 600, boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}>
+        <button onClick={handleIncrementar} style={{ background: '#0070f3', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: 6, fontSize: '1rem', cursor: 'pointer', fontWeight: 600, boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}>
           Incrementar ({count})
         </button>
-        <Link href="/produtos" style={{ background: '#fff', color: '#0070f3', border: '2px solid #0070f3', padding: '10px 24px', borderRadius: 6, fontWeight: 600, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+        <button onClick={handleVerProdutos} style={{ background: '#fff', color: '#0070f3', border: '2px solid #0070f3', padding: '10px 24px', borderRadius: 6, fontWeight: 600, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
           Ver Produtos
-        </Link>
+        </button>
       </div>
       <div style={{ marginTop: 32, color: '#888', fontSize: 14 }}>
         <span>Desenvolvido com <b>Next.js</b> + <b>Medusa</b></span>
