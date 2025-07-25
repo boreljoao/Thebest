@@ -1,0 +1,96 @@
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #0070f3;
+}
+nav a:hover {
+  color: #005bb5;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.produto-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.produto-card:hover {
+  /* transform: scale(1.05); */
+}
+
+.produto-card img {
+  width: 100%;
+  height: auto;
+}
+
+/* Estilos para a Home (page.js) */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 40px 20px;
+  margin: 40px auto;
+  max-width: 400px;
+}
+
+.home-container h1 {
+  font-size: 2.5rem;
+  color: #222;
+  margin-bottom: 16px;
+}
+
+.home-container p {
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+  color: #444;
+}
+
+.home-container button {
+  background: #0070f3;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 18px;
+  transition: background 0.2s;
+}
+
+.home-container button:hover {
+  background: #005bb5;
+}
+
+.home-container a {
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.home-container a:hover {
+  color: #005bb5;
+}
