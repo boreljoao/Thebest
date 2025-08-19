@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "slug": "anel-ouro-minimalista",
+    "title": "Anel de Ouro Minimalista",
+    "description": "Anel em ouro 18k com design minimalista e elegante.",
+    "price": 1299.9,
+    "category": "aneis",
+    "stock": 6,
+    "image": "https://2yl97pdy7skcjyre.public.blob.vercel-storage.com/products/Alian%C3%A7a%20de%20Ouro%20Minimalista.webp"
+  },
+  {
+    "id": 2,
+    "slug": "colar-ponto-de-luz",
+    "title": "Colar Ponto de Luz",
+    "description": "Colar em ouro 18k com zircônia lapidada estilo ponto de luz.",
+    "price": 899,
+    "category": "colares",
+    "stock": 1,
+    "image": "https://images.unsplash.com/photo-1617038260897-5cbac9e823dc?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 3,
+    "slug": "brinco-argola-classico",
+    "title": "Brinco Argola Clássico",
+    "description": "Argolas médias em ouro 18k, acabamento polido.",
+    "price": 749.5,
+    "category": "brincos",
+    "stock": 18,
+    "image": "https://images.unsplash.com/photo-1611672585731-8f65f8a1c3d0?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 4,
+    "slug": "pulseira-elos-ouro",
+    "title": "Pulseira Elos em Ouro",
+    "description": "Pulseira de elos ovais em ouro 18k, fecho gaveta.",
+    "price": 1599,
+    "category": "pulseiras",
+    "stock": 10,
+    "image": "https://images.unsplash.com/photo-1612178537459-49d00c2c3d8c?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 5,
+    "slug": "anel-solitario-zirconia",
+    "title": "Anel Solitário com Zircônia",
+    "description": "Solitário em ouro 18k com pedra central de zircônia.",
+    "price": 1120,
+    "category": "aneis",
+    "stock": 13,
+    "image": "https://images.unsplash.com/photo-1600180758890-6b94519a8ba7?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 6,
+    "slug": "colar-cadeado-tendencia",
+    "title": "Colar Cadeado Tendência",
+    "description": "Corrente com pingente de cadeado em ouro 18k.",
+    "price": 980,
+    "category": "colares",
+    "stock": 11,
+    "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c49?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 7,
+    "slug": "brinco-ponto-de-luz",
+    "title": "Brinco Ponto de Luz",
+    "description": "Par de brincos em ouro 18k com zircônias lapidadas.",
+    "price": 560,
+    "category": "brincos",
+    "stock": 22,
+    "image": "https://images.unsplash.com/photo-1526045478516-99145907023c?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 8,
+    "slug": "pulseira-tennis-zirconia",
+    "title": "Pulseira Tennis Zircônia",
+    "description": "Pulseira estilo tennis com zircônias cravejadas.",
+    "price": 1990,
+    "category": "pulseiras",
+    "stock": 7,
+    "image": "https://images.unsplash.com/photo-1571074635698-7a0e4a7b5479?q=80&w=1200&auto=format&fit=crop"
+  }
+]

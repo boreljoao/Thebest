@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./styles/global.css";
+import NavCartCount from "./components/NavCartCount.jsx";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,14 +19,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <nav style={{ padding: '10px' }}>
-          <a href="/" style={{ marginRight: '10px' }}>Home</a>
-          <a href="/produtos" style={{ marginRight: '10px' }}>Produtos</a>
-          <a href="/admin/estoque" style={{ marginRight: '10px' }}>Estoque</a>
-          <a href="/admin/pedidos" style={{ marginRight: '10px' }}>Pedidos</a>
-          <a href="/checkout">Checkout</a>
+        <nav style={{ padding: '12px 24px', display: 'flex', alignItems: 'center', gap: 18, background: '#0D0D0D' }}>
+          <a href="/" style={{ color: '#fff', fontWeight: 700, marginRight: 'auto', textDecoration: 'none' }}>Jóias Prime</a>
+          <a href="/" style={{ color: '#EAEAEA', textDecoration: 'none' }}>Home</a>
+          <a href="/produtos" style={{ color: '#EAEAEA', textDecoration: 'none' }}>Produtos</a>
+          <a href="/checkout" style={{ color: '#EAEAEA', textDecoration: 'none' }}>Checkout</a>
+          <a href="/admin/estoque" style={{ color: '#7a7a7a', textDecoration: 'none' }}>Admin</a>
+          <NavCartCount />
         </nav>
         {children}
       </body>

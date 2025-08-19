@@ -1,1 +1,28 @@
-[{"id":1753391384527,"name":"joao pedro","email":"boreljoao@gmail.com"},{"id":1753391514279,"name":"pedro","email":"boreljoao@gmail.com"},{"id":1753391590914,"name":"joao pedro","email":"leagueoflegsf@gmail.com","quantidade":1,"hora":"2025-07-24T21:13:10.914Z"},{"id":1753391667345,"name":"joao pedro","email":"boreljoao@gmail.com","quantidade":3,"hora":"2025-07-24T21:14:27.345Z"},{"id":1753391751676,"name":"fsf","email":"fds@dd.com","quantidade":13,"hora":"2025-07-24T21:15:51.676Z"}]
+[
+  {
+    "id": 1754604610050,
+    "name": "pedro",
+    "email": "pedro@gmail.com",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 2
+      }
+    ],
+    "total": 2599.8,
+    "createdAt": "2025-08-07T22:10:10.050Z"
+  },
+  {
+    "id": 1754604685506,
+    "name": "paulo",
+    "email": "paulo@gmail.com",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 2
+      }
+    ],
+    "total": 2599.8,
+    "createdAt": "2025-08-07T22:11:25.506Z"
+  }
+]

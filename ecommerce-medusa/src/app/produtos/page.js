@@ -1,65 +1,62 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import '../styles/produto.css'
 
 export default function ProdutosPage() {
-  const [estoque, setEstoque] = useState(null)
-  const [adicionados, setAdicionados] = useState(0)
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [cart, setCart] = useState([])
 
   useEffect(() => {
-    fetch('/api/inventory')
-      .then(res => res.json())
-      .then(data => setEstoque(data.available))
-    // Recupera do localStorage o valor salvo no Home
-    const salvo = parseInt(window.localStorage.getItem('vale_adicionados') || '0', 10)
-    setAdicionados(salvo)
+    fetch('/api/products')
+      .then(r => r.json())
+      .then(setProducts)
+      .finally(() => setLoading(false))
+    const saved = JSON.parse(localStorage.getItem('cart') || '[]')
+    setCart(saved)
   }, [])
 
-  const handleAdicionar = () => {
-    if (estoque !== null && adicionados < estoque) {
-      setAdicionados(adicionados + 1)
-      window.localStorage.setItem('vale_adicionados', adicionados + 1)
+  function saveCart(next) {
+    setCart(next)
+    localStorage.setItem('cart', JSON.stringify(next))
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('cart:updated'))
     }
   }
 
-  const handleRemover = () => {
-    if (adicionados > 0) {
-      setAdicionados(adicionados - 1)
-      window.localStorage.setItem('vale_adicionados', adicionados - 1)
-    }
+  function addToCart(productId) {
+    const next = [...cart]
+    const i = next.findIndex(it => it.productId === productId)
+    if (i >= 0) next[i].quantity += 1
+    else next.push({ productId, quantity: 1 })
+    saveCart(next)
   }
-
-  const handleCheckout = () => {
-    if (adicionados > 0 && adicionados <= estoque) {
-      window.location.href = '/checkout'
-    }
-  }
-
-  const estoqueDisponivel = estoque !== null ? estoque - adicionados : null
-  const podeAdicionar = estoque !== null && adicionados < estoque
-  const podeRemover = adicionados > 0
-  const podeCheckout = adicionados > 0 && adicionados <= estoque
 
   return (
-    <div className="produtos-page">
-      <div className="produto-card melhorado">
-        <img src="/vale.jpg" alt="Vale Teste" className="produto-img" />
-        <h2>Vale Teste</h2>
-        <p className="produto-desc">Um vale simples para testes. Adicione ao carrinho e finalize para testar o fluxo.</p>
-        <span className="produto-preco">R$ 1,00</span>
-        <span className="produto-estoque">{estoqueDisponivel !== null ? estoqueDisponivel : 'Carregando...'} disponíveis</span>
-        <div className="produto-actions">
-          <button onClick={handleAdicionar} disabled={!podeAdicionar} className="btn-add">
-            Adicionar {adicionados > 0 && `(${adicionados})`}
-          </button>
-          <button onClick={handleRemover} disabled={!podeRemover} className="btn-remove">
-            Remover
-          </button>
-          <button onClick={handleCheckout} disabled={!podeCheckout} className="btn-checkout">
-            Ir para Checkout
-          </button>
+    <div className="container" style={{ padding: '32px 0' }}>
+      <h1 style={{ marginBottom: 16 }}>Produtos</h1>
+      {loading ? (
+        <div>Carregando...</div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
+          {products.map(p => (
+            <article key={p.id} style={{ background: '#fff', border: '1px solid #eee', borderRadius: 12, overflow: 'hidden', boxShadow: '0 6px 18px rgba(0,0,0,.06)' }}>
+              <img src={p.image} alt={p.title} style={{ width: '100%', height: 180, objectFit: 'cover' }} />
+              <div style={{ padding: 16 }}>
+                <h3 style={{ marginBottom: 6 }}>{p.title}</h3>
+                <p style={{ color: '#666', fontSize: 14, marginBottom: 10 }}>{p.description}</p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <strong style={{ color: 'var(--color-primary)' }}>R$ {p.price.toFixed(2)}</strong>
+                  <div style={{ display: 'flex', gap: 8 }}>
+                    <button className="btn btn-primary" onClick={() => addToCart(p.id)} disabled={p.stock <= 0}>Adicionar</button>
+                    <a className='btn btn-outline' href='/checkout'>Comprar</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
-      </div>
+      )}
     </div>
   )
 }

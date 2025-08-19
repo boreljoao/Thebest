@@ -2,19 +2,18 @@
 import { useEffect, useState } from 'react'
 
 export default function AdminPage() {
-  const [estoque, setEstoque] = useState(null)
+  const [products, setProducts] = useState([])
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(false)
 
-  // Carrega estoque e pedidos
   const fetchData = async () => {
     setLoading(true)
-    const invRes = await fetch('/api/inventory')
-    const inv = await invRes.json()
-    setEstoque(inv.available)
-    const ordRes = await fetch('/api/orders')
-    const ord = await ordRes.json()
-    setOrders(ord)
+    const [p, o] = await Promise.all([
+      fetch('/api/products').then(r => r.json()),
+      fetch('/api/orders').then(r => r.json())
+    ])
+    setProducts(p)
+    setOrders(o)
     setLoading(false)
   }
 
@@ -22,40 +21,7 @@ export default function AdminPage() {
     fetchData()
   }, [])
 
-  // Adiciona 1 ao estoque
-  const handleAddEstoque = async () => {
-    await fetch('/api/inventory', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ set: estoque + 1 })
-    })
-    fetchData()
-  }
-
-  // Remove 1 do estoque
-  const handleRemoveEstoque = async () => {
-    if (estoque > 0) {
-      await fetch('/api/inventory', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ set: estoque - 1 })
-      })
-      fetchData()
-    }
-  }
-
-  // Zera o estoque
-  const handleZerarEstoque = async () => {
-    await fetch('/api/inventory', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ set: 0 })
-    })
-    fetchData()
-  }
-
-  // Limpa todos os pedidos
-  const handleLimparPedidos = async () => {
+  async function handleLimparPedidos() {
     await fetch('/api/orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -65,28 +31,82 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="container" style={{maxWidth: 700, margin: '40px auto'}}>
+    <div className="container" style={{ maxWidth: 900, margin: '40px auto' }}>
       <h1>Painel Admin</h1>
-      <h2>Estoque</h2>
-      <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18}}>
-        <span style={{fontSize: 20}}>Vale Teste: <b>{estoque !== null ? estoque : '...'}</b></span>
-        <button onClick={handleAddEstoque}>+1</button>
-        <button onClick={handleRemoveEstoque} disabled={estoque === 0}>-1</button>
-        <button onClick={handleZerarEstoque}>Zerar</button>
+
+      <h2>Estoque por produto</h2>
+      <div className='card' style={{ padding: 16, marginBottom: 24 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ textAlign: 'left', color: '#666', fontSize: 13 }}>
+              <th style={{ padding: '6px 4px' }}>Produto</th>
+              <th style={{ padding: '6px 4px' }}>Categoria</th>
+              <th style={{ padding: '6px 4px' }}>Preço</th>
+              <th style={{ padding: '6px 4px' }}>Estoque</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map(p => (
+              <tr key={p.id}>
+                <td style={{ padding: '6px 4px' }}>{p.title}</td>
+                <td style={{ padding: '6px 4px', textTransform: 'capitalize' }}>{p.category}</td>
+                <td style={{ padding: '6px 4px' }}>R$ {p.price.toFixed(2)}</td>
+                <td style={{ padding: '6px 4px' }}>{p.stock}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+
       <h2>Pedidos</h2>
-      <button onClick={handleLimparPedidos} style={{marginBottom: 10}}>Limpar todos os pedidos</button>
-      <ul style={{background: '#fafafa', borderRadius: 8, padding: 16}}>
-        {orders.length === 0 && <li>Nenhum pedido</li>}
-        {orders.map(o => (
-          <li key={o.id} style={{marginBottom: 10, borderBottom: '1px solid #eee', paddingBottom: 6}}>
-            <b>{o.name}</b> - {o.email} <br/>
-            <span>Quantidade: {o.quantidade || 1}</span> <br/>
-            <span>Hora: {o.hora ? new Date(o.hora).toLocaleString() : '-'}</span>
-          </li>
-        ))}
-      </ul>
-      {loading && <div>Carregando...</div>}
+      <a className='btn btn-outline' href='/admin/pedidos' style={{ marginBottom: 12 }}>Ir para gestão detalhada de pedidos</a>
+      {loading ? <div>Carregando...</div> : (
+        <div style={{ display: 'grid', gap: 16 }}>
+          {orders.length === 0 && <div>Nenhum pedido</div>}
+          {orders.map(o => (
+            <div key={o.id} className='card' style={{ padding: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                <div>
+                  <div style={{ fontWeight: 700 }}>#{o.id}</div>
+                  <div style={{ color: '#666' }}>{o.name} · {o.email}</div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div><b>Total:</b> R$ {Number(o.total || 0).toFixed(2)}</div>
+                  <div style={{ color: '#666' }}>{o.createdAt ? new Date(o.createdAt).toLocaleString() : '-'}</div>
+                </div>
+              </div>
+              <div style={{ borderTop: '1px solid #eee', paddingTop: 8 }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ textAlign: 'left', color: '#666', fontSize: 13 }}>
+                      <th style={{ padding: '6px 4px' }}>Produto</th>
+                      <th style={{ padding: '6px 4px' }}>Qtd</th>
+                      <th style={{ padding: '6px 4px' }}>Preço</th>
+                      <th style={{ padding: '6px 4px' }}>Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(o.items || []).map((it, idx) => {
+                      const p = products.find(pr => pr.id === it.productId)
+                      const qty = it.quantity || 1
+                      const unit = p ? p.price : 0
+                      const sub = unit * qty
+                      return (
+                        <tr key={idx}>
+                          <td style={{ padding: '6px 4px' }}>{p ? p.title : `Produto ${it.productId}`}</td>
+                          <td style={{ padding: '6px 4px' }}>{qty}</td>
+                          <td style={{ padding: '6px 4px' }}>R$ {unit.toFixed(2)}</td>
+                          <td style={{ padding: '6px 4px' }}>R$ {sub.toFixed(2)}</td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 } 

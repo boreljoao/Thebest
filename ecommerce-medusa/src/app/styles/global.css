@@ -1,96 +1,82 @@
+/* ===== Design System ===== */
+:root {
+  --color-primary: #8B00FF;
+  --color-primary-dark: #6a00d1;
+  --color-bg: #F4F4F4;
+  --color-bg-card: #FFFFFF;
+  --color-text: #1E1E1E;
+  --radius: 12px;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --transition: 120ms ease;
+}
+
+/* ===== Reset rápido ===== */
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-geist-sans), system-ui, sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.5; }
+
+/* ===== Navegação ===== */
+nav {
+  display: flex;
+  gap: 32px;
+  padding: 18px 48px;
+  background: #0D0D0D;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #111;
+}
 nav a {
-  margin-right: 10px;
+  color: #F4F4F4;
+  font-weight: 500;
   text-decoration: none;
-  color: #0070f3;
+  transition: opacity var(--transition);
 }
-nav a:hover {
-  color: #005bb5;
-}
+nav a:hover { opacity: .7; }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+/* ===== Utilidades ===== */
+.container { width: min(95%, 1200px); margin-inline: auto; }
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 10px 24px; font-weight: 600; font-size: 1rem;
+  border-radius: var(--radius); border: 0; cursor: pointer;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
 }
+.btn-primary  { background: var(--color-primary);   color: #FFF; }
+.btn-primary:hover  { background: var(--color-primary-dark); transform: translateY(-1px); }
+.btn-outline  { background: #FFF; color: var(--color-primary); border: 2px solid var(--color-primary); }
+.btn-outline:hover { background: var(--color-primary); color: #FFF; }
 
-.container {
-  padding: 20px;
+h1,h2,h3 { font-weight: 700; letter-spacing: .2px; color: var(--color-text); }
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { color: var(--color-primary-dark); }
+
+.home-container {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: 24px; padding: 60px 24px; background: #FFFFFF; border-radius: var(--radius);
+  width: min(95%, 480px); margin: 60px auto; box-shadow: var(--shadow-md);
 }
+.home-container img { width: 100px; filter: drop-shadow(var(--shadow-sm)); }
+.home-container button { all: unset; }
 
+/* Grid utilizado na página de listagem de produtos            */
+/* (o arquivo produto.css abaixo apenas aprofunda a parte visual) */
 .produtos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
 }
 
-.produto-card {
-  border: 1px solid #ccc;
-  padding: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
+.card { background: #FFF; border: 1px solid #eee; border-radius: 12px; box-shadow: var(--shadow-sm); }
+.badge { display: inline-block; background: #F3E8FF; color: var(--color-primary); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.input { width: 100%; padding: 12px 14px; border: 1px solid #D7D7D7; border-radius: var(--radius); outline-color: var(--color-primary); }
+.grid { display: grid; gap: 20px; }
 
-.produto-card:hover {
-  /* transform: scale(1.05); */
-}
-
-.produto-card img {
-  width: 100%;
-  height: auto;
-}
-
-/* Estilos para a Home (page.js) */
-.home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  padding: 40px 20px;
-  margin: 40px auto;
-  max-width: 400px;
-}
-
-.home-container h1 {
-  font-size: 2.5rem;
-  color: #222;
-  margin-bottom: 16px;
-}
-
-.home-container p {
-  font-size: 1.2rem;
-  margin-bottom: 24px;
-  color: #444;
-}
-
-.home-container button {
-  background: #0070f3;
-  color: #fff;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-bottom: 18px;
-  transition: background 0.2s;
-}
-
-.home-container button:hover {
-  background: #005bb5;
-}
-
-.home-container a {
-  color: #0070f3;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.2s;
-}
-
-.home-container a:hover {
-  color: #005bb5;
+/* =========  Quebra rápida até 768 px  ========= */
+@media (max-width: 768px) {
+  nav { gap: 20px; padding: 14px 24px; overflow-x: auto; }
 }
