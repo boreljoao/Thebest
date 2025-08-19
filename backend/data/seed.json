@@ -1,0 +1,16 @@
+{
+  "products": [
+    {
+      "title": "Camiseta Logo",
+      "description": "Camiseta 100% algodão",
+      "status": "published",
+      "options": [{ "title": "Tamanho" }],
+      "variants": [
+        { "title": "M", "prices": [{ "amount": 7900, "currency_code": "brl" }], "options": [{ "value": "M" }] }
+      ]
+    }
+  ],
+  "regions": [
+    { "name": "Brasil", "currency_code": "brl", "tax_rate": 0, "payment_providers": ["manual"] }
+  ]
+}
