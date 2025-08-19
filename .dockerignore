@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.yarn
+.pnpm-store
+.next
+dist
+out
+coverage
+.env.local
+.env.development
+.env.production
+*.pem

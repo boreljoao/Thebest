@@ -1,27 +1,21 @@
-# Thebest Monorepo
+# Execução com Docker
 
-Este repositório contém um conjunto de projetos para uma loja online.
+## Desenvolvimento
+1. Copie `.env.example` para `.env` e ajuste as variáveis.
+2. Suba os containers:
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+3. Acompanhe os logs do backend:
+```bash
+docker compose -f docker-compose.dev.yml logs -f backend
+```
 
-Estrutura de pastas:
+## Produção
+1. Defina `POSTGRES_PASSWORD`, `JWT_SECRET` e `COOKIE_SECRET` em um arquivo `.env`.
+2. Execute:
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
+```
 
-- `backend/` – API Node.js com gerenciamento de estoque e pedidos
-- `admin-frontend/` – painel administrativo protegido
-- `store-frontend/` – site público da loja
-
-## Como rodar localmente
-
-1. Copie cada arquivo `.env.example` para `.env` dentro de suas respectivas pastas e preencha as variáveis.
-2. Na pasta `backend/` instale as dependências e inicie o servidor:
-   ```bash
-   npm install
-   npm start
-   ```
-3. Nos diretórios `admin-frontend/` e `store-frontend/` rode:
-   ```bash
-   npm install
-   npm run dev
-   ```
-
-Configure o `ADMIN_TOKEN` no backend e utilize o mesmo valor em `NEXT_PUBLIC_ADMIN_TOKEN` no admin-frontend para ter acesso às rotas protegidas.
-
-Os arquivos `.env` nunca devem ser versionados. Utilize sempre os exemplos para criar as configurações locais.
+Todo o ambiente de desenvolvimento e produção roda dentro de containers. Não é necessário executar `npm` localmente.
